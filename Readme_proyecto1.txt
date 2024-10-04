@@ -1,2 +1,3 @@
-**Readme Proyecto 1**
-# Game
+#Readme Proyecto 1
+# Game :smile:
+
