@@ -1,5 +1,8 @@
 import random
 
+
+
+# Estructura con la respuesta correcta incluida 
 geografia = {
     "pregunta1": "¿Cuál es la capital de Francia?paris",
     "pregunta2": "¿Qué país tiene la mayor cantidad de habitantes?china",
@@ -40,118 +43,109 @@ cultura_general = {
     "pregunta7": "¿En qué país se originaron los Juegos Olímpicos?grecia"
 }
 
+
+# Clase Preguntados con 15 rondas por defecto y eliminación de categorías agotadas
 class Preguntados:
     def __init__(self):
-        
+        # Diccionario que contiene las categorías y sus preguntas (diccionario de diccionario)
         self.categorias = {
             "geografia": geografia.copy(),
             "ciencia": ciencia.copy(),
             "historia": historia.copy(),
             "cultura_general": cultura_general.copy()
         }
-        self.categorias_disponibles = list(self.categorias.keys())  
-        self.correctas = 0  
-        self.incorrectas = 0  
+        self.categorias_disponibles = list(self.categorias.keys())  # Lista de categorías disponibles
+        self.correctas = 0  # Para contar las respuestas correctas
+        self.incorrectas = 0  # Para contar las respuestas incorrectas
 
     def seleccionar_categoria(self):
-        """Selecciona una categoría al azar entre las disponibles
-        """
-        if self.categorias_disponibles:   
+        """Selecciona una categoría al azar entre las disponibles."""
+        if self.categorias_disponibles:   # Verifica si aún hay categorías disponibles
             self.categoria_actual = random.choice(self.categorias_disponibles)
             print(f"\nCategoría seleccionada: {self.categoria_actual.capitalize()}")
             return True
         else:
             print("\n¡No quedan más categorías disponibles!")
-            return False 
-        
+            return False  # Devuelve False si no quedan categorías
 
     def seleccionar_pregunta(self):
-        """Selecciona una pregunta aleatoria de la categoría actual
-        """
-        preguntas_disponibles = list(self.categorias[self.categoria_actual].values()) 
+        """Selecciona una pregunta aleatoria de la categoría actual."""
+        preguntas_disponibles = list(self.categorias[self.categoria_actual].values())  # Obtener lista de preguntas disponibles
         
         if preguntas_disponibles:
-            pregunta_completa = random.choice(preguntas_disponibles)  
-            self.pregunta, self.respuesta_correcta = pregunta_completa.split("?")  
+            pregunta_completa = random.choice(preguntas_disponibles)  # Selecciona una pregunta aleatoria
+            self.pregunta, self.respuesta_correcta = pregunta_completa.split("?")  # Separa la pregunta y la respuesta
+            # Eliminar la pregunta ya hecha del diccionario
             pregunta_key = list(self.categorias[self.categoria_actual].keys())[preguntas_disponibles.index(pregunta_completa)]
-            del self.categorias[self.categoria_actual][pregunta_key]  
+            del self.categorias[self.categoria_actual][pregunta_key]  # Elimina la pregunta hecha
             print(f"Pregunta: {self.pregunta}")
         else:
+            # Si no quedan preguntas en la categoría actual, se elimina de las categorías disponibles
             print(f"\nNo quedan más preguntas en la categoría {self.categoria_actual.capitalize()}.")
             self.categorias_disponibles.remove(self.categoria_actual)
 
     def verificar_respuesta(self, respuesta_usuario):
-        """Verifica si la respuesta del usuario es correcta
-             parámetro: str o int: la respuesta a la pregunta dada
-             return: str: Correcto o incorrecto 
-                     acción: +1 en el contador correspondiente 
-        """
+        """Verifica si la respuesta del usuario es correcta."""
         if respuesta_usuario.lower().strip() == self.respuesta_correcta.lower().strip():
             print("¡Correcto!")
-            self.correctas += 1  
+            self.correctas += 1  # Incrementa el contador de respuestas correctas
         else:
             print(f"Incorrecto. La respuesta correcta era: {self.respuesta_correcta}")
-            self.incorrectas += 1  
+            self.incorrectas += 1  # Incrementa el contador de respuestas incorrectas
 
     def jugar_preguntados(self):
-        """Inicia el juego con 15 rondas por defecto
-        """
+        """Inicia el juego con 15 rondas por defecto."""
         print("¡Bienvenido a Preguntados!")
-        rondas = 15 
+        rondas = 15  # Número de rondas por defecto
 
         for ronda in range(1, rondas + 1):
             if not self.seleccionar_categoria():
-                break  
+                break  # Si no quedan categorías disponibles, se termina el juego
             else:
                 print(f"\n--- Ronda {ronda}/{rondas} ---")
                 self.seleccionar_pregunta()
                 respuesta_usuario = input("Escribe tu respuesta: ")
                 self.verificar_respuesta(respuesta_usuario)
 
+        # Al finalizar las rondas o si no hay más preguntas, mostramos los resultados
         self.mostrar_resultados()
 
     def mostrar_resultados(self):
-        """Muestra los resultados al final del juego y pregunta qué quiere hacer el usuario al final
-        """
+        """Muestra los resultados al final del juego y pregunta qué quiere hacer el usuario."""
         print("\n--- Fin del juego ---")
         print(f"Respuestas correctas: {self.correctas}")
         print(f"Respuestas incorrectas: {self.incorrectas}")
         print("\n--- Espero que lo hayas disfrutado ---")
 
-        
+        # Preguntar al usuario qué quiere hacer a continuación
         self.opciones_post_juego()
 
     def opciones_post_juego(self):
-        """Presenta opciones después del juego: jugar de nuevo, ir al menu o terminar
-        """
+        """Presenta opciones después del juego: jugar de nuevo, ir al menú o terminar."""
         while True:
-            decision = input("\n¿Qué te gustaría hacer ahora? (jugar de nuevo / menu / salir): ").lower().strip()
+            decision = input("\n¿Qué te gustaría hacer ahora? (jugar de nuevo / menú / salir): ").lower().strip()
             
             if decision == "jugar de nuevo":
-                self.reiniciar_juego()  
+                self.reiniciar_juego()  # Reiniciar el juego y volver a jugar
                 self.jugar_preguntados()
                 break
-
-            elif decision == "menu":
+            elif decision == "menú":
                 print("\nVolviendo al menú principal...")
+                # Aquí puedes implementar la función que dirija al menú principal en el futuro
                 break
-
             elif decision == "salir":
                 print("\n¡Gracias por jugar! Saliendo del programa...")
-                exit() 
-
+                exit()  # Termina el programa
             else:
-                print("\nOpción no válida. Por favor, elige 'jugar de nuevo', 'menu' o 'salir'.")
+                print("\nOpción no válida. Por favor, elige 'jugar de nuevo', 'menú' o 'salir'.")
 
     def reiniciar_juego(self):
-        """Vacía los contadores y reinicia las categorías disponibles así como las preguntas de cada 
-           categoría para cuando el usuario elije volver a jugar
-        """
+        """Reinicia las variables para un nuevo juego."""
         self.correctas = 0
         self.incorrectas = 0
-        self.categorias_disponibles = list(self.categorias.keys())  
+        self.categorias_disponibles = list(self.categorias.keys())  # Restablece las categorías disponibles
         for categoria in self.categorias:
-            self.categorias[categoria] = globals()[categoria].copy()  
+            self.categorias[categoria] = globals()[categoria].copy()  # Reinicia las preguntas de cada categoría
 
 
 preguntados = Preguntados()
