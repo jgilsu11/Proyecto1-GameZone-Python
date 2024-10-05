@@ -23,6 +23,19 @@ def mostrar_tablero(palabra_secreta, letras_adivinadas):
             tablero += "_ " 
 
     print(tablero)
+def dibujar_ahorcado(intentos_restantes):
+    partes = [
+        "  O  ",  
+        "  |  ",  
+        " / \ ",     
+        "  | ",   
+        " / \ ",     
+        "/   \ "    
+    ]
+    dibujo = [" "] * 6   
+    for i in range(6 - intentos_restantes): 
+        dibujo[i] = partes[i]
+    print("\n".join(dibujo)) 
 
 def jugar_ahorcado():
     palabra_oculta= obtener_palabra_aleatoria()
@@ -45,6 +58,7 @@ def jugar_ahorcado():
                 break
         else:
             intentos_restantes -= 1
+            dibujar_ahorcado(intentos_restantes)
             if intentos_restantes > 0:
                 print(f"Lo siento, esa letra no está en la palabra, prueba otra vez que te quedan {intentos_restantes} intentos")
     if intentos_restantes == 0:
