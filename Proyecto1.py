@@ -1,5 +1,6 @@
 import random
 
+ 
 geografia = {
     "pregunta1": "¿Cuál es la capital de Francia?paris",
     "pregunta2": "¿Qué país tiene la mayor cantidad de habitantes?china",
@@ -40,9 +41,9 @@ cultura_general = {
     "pregunta7": "¿En qué país se originaron los Juegos Olímpicos?grecia"
 }
 
+
 class Preguntados:
     def __init__(self):
-        
         self.categorias = {
             "geografia": geografia.copy(),
             "ciencia": ciencia.copy(),
@@ -62,7 +63,7 @@ class Preguntados:
             return True
         else:
             print("\n¡No quedan más categorías disponibles!")
-            return False 
+            return False  
         
 
     def seleccionar_pregunta(self):
@@ -73,18 +74,17 @@ class Preguntados:
         if preguntas_disponibles:
             pregunta_completa = random.choice(preguntas_disponibles)  
             self.pregunta, self.respuesta_correcta = pregunta_completa.split("?")  
+
             pregunta_key = list(self.categorias[self.categoria_actual].keys())[preguntas_disponibles.index(pregunta_completa)]
             del self.categorias[self.categoria_actual][pregunta_key]  
             print(f"Pregunta: {self.pregunta}")
         else:
+            
             print(f"\nNo quedan más preguntas en la categoría {self.categoria_actual.capitalize()}.")
             self.categorias_disponibles.remove(self.categoria_actual)
 
     def verificar_respuesta(self, respuesta_usuario):
         """Verifica si la respuesta del usuario es correcta
-             parámetro: str o int: la respuesta a la pregunta dada
-             return: str: Correcto o incorrecto 
-                     acción: +1 en el contador correspondiente 
         """
         if respuesta_usuario.lower().strip() == self.respuesta_correcta.lower().strip():
             print("¡Correcto!")
@@ -97,11 +97,11 @@ class Preguntados:
         """Inicia el juego con 15 rondas por defecto
         """
         print("¡Bienvenido a Preguntados!")
-        rondas = 15 
-
+        rondas = 15  
+        
         for ronda in range(1, rondas + 1):
-            if not self.seleccionar_categoria():
-                break  
+            if not self.seleccionar_categoria():    
+                break              
             else:
                 print(f"\n--- Ronda {ronda}/{rondas} ---")
                 self.seleccionar_pregunta()
@@ -111,41 +111,40 @@ class Preguntados:
         self.mostrar_resultados()
 
     def mostrar_resultados(self):
-        """Muestra los resultados al final del juego y pregunta qué quiere hacer el usuario al final
+        """Muestra los resultados al final del juego y pregunta qué quiere hacer el usuario
         """
         print("\n--- Fin del juego ---")
         print(f"Respuestas correctas: {self.correctas}")
         print(f"Respuestas incorrectas: {self.incorrectas}")
         print("\n--- Espero que lo hayas disfrutado ---")
 
-        
         self.opciones_post_juego()
 
     def opciones_post_juego(self):
-        """Presenta opciones después del juego: jugar de nuevo, ir al menu o terminar
+        """Presenta opciones después del juego: jugar de nuevo, ir al menú o terminar
         """
         while True:
-            decision = input("\n¿Qué te gustaría hacer ahora? (jugar de nuevo / menu / salir): ").lower().strip()
-            
-            if decision == "jugar de nuevo":
-                self.reiniciar_juego()  
+            print("\n¿Qué te gustaría hacer ahora?")
+            print("1. Volver a jugar")
+            print("2. Volver al menú principal")
+            print("3. Salir")
+            opcion = input("Elige una opción (1, 2, 3): ").strip()
+
+            if opcion == "1":
+                self.reiniciar_juego()
                 self.jugar_preguntados()
                 break
-
-            elif decision == "menu":
-                print("\nVolviendo al menú principal...")
+            elif opcion == "2":
+                print("Volviendo al menú principal... (aún por implementar)")
                 break
-
-            elif decision == "salir":
-                print("\n¡Gracias por jugar! Saliendo del programa...")
-                exit() 
-
+            elif opcion == "3":
+                print("¡Gracias por jugar! Hasta la próxima.")
+                exit()
             else:
-                print("\nOpción no válida. Por favor, elige 'jugar de nuevo', 'menu' o 'salir'.")
+                print("Opción no válida. Por favor, elige 1, 2 o 3.")
 
     def reiniciar_juego(self):
-        """Vacía los contadores y reinicia las categorías disponibles así como las preguntas de cada 
-           categoría para cuando el usuario elije volver a jugar
+        """Reinicia las variables para un nuevo juego
         """
         self.correctas = 0
         self.incorrectas = 0
@@ -154,5 +153,5 @@ class Preguntados:
             self.categorias[categoria] = globals()[categoria].copy()  
 
 
-preguntados = Preguntados()
+preguntados = Preguntados()  
 preguntados.jugar_preguntados()
