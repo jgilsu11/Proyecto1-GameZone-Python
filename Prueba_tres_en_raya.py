@@ -79,6 +79,8 @@ class JuegoTresEnRaya:
                     self.turno_jugador = not self.turno_jugador  
 
     def iniciar_tres_en_raya(self):
+        """Es la función donde se ordenan el resto de funciones con todo lo necesario para que se ejecute el juego
+        """
         while self.juego_activo:
             juego = self.TresEnRaya()
             juego.jugar_ronda()
