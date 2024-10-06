@@ -1,5 +1,5 @@
 #Intento fallido de menú
-
+#A ver si se actualiza o hace efecto gitingone
 class Preguntados(Juego):
     def __init__(self, menu):
         """Es el constructor de la clase
