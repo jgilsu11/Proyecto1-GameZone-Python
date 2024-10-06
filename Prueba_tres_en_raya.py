@@ -96,11 +96,11 @@ class JuegoTresEnRaya:
                     print("Redirigiendo al menú de otros juegos... (próximamente)")
                     
                     self.juego_activo = False
-                    return
+                    exit()
                 elif eleccion_final == "3":
                     print("¡Gracias por jugar! Hasta luego.")
                     self.juego_activo = False
-                    return
+                    exit()
                 else:
                     print("Opción no válida, elige nuevamente.")
 
