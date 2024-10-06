@@ -71,7 +71,7 @@ class Ahorcados:
         while True:
             print("\n¿Qué te gustaría hacer ahora?")
             print("1. Volver a jugar")
-            print("2. Volver al menú principal")
+            print("2. Volver al menú de juegos")
             print("3. Salir")
             opcion = input("Elige una opción (1, 2, 3): ").strip()  
 
@@ -80,7 +80,7 @@ class Ahorcados:
                 self.jugar()
                 break
             elif opcion == "2":
-                print("Volviendo al menú principal... (aún por implementar)")
+                print("Volviendo al menú de juegos... (aún por implementar)")
                 break
             elif opcion == "3":
                 print("¡Gracias por jugar! Hasta la próxima.")
