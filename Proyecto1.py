@@ -1,11 +1,12 @@
 
-
-#PREGUNTADOS 
-
-
-
-
 import random
+import os
+
+
+#PREGUNTADOS
+
+
+
 
 
 geografia = {
