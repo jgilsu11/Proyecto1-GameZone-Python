@@ -1,5 +1,5 @@
 #Intento fallido de menú
-
+#Prueba gitignore
 class Preguntados(Juego):
     def __init__(self, menu):
         """Es el constructor de la clase
